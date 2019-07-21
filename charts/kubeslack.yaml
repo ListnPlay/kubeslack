@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeslack
+  namespace: kube-system
+  labels:
+    app: kubeslack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeslack
+  template:
+    metadata:
+      labels:
+        app: kubeslack
+    spec:
+      serviceAccountName: kubeadmin
+      containers:
+      - name: kubeslack
+        image: featurefm/kubeslack
+        env:
+        - name: SLACK_CHANNEL
+          value: "#k8s"
+        - name: SLACK_TOKEN
+          value: xoxb-xxxxx-xxxxx-xxxxx
+        - name: NAMESPACE
+          value: default
